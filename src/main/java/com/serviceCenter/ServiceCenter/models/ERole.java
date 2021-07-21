@@ -1,7 +1,6 @@
 package com.serviceCenter.ServiceCenter.models;
 
 public enum ERole {
-  ROLE_USER,
-  ROLE_MODERATOR,
-  ROLE_ADMIN
+  ROLE_MANAGER,
+  ROLE_OWNER
 }
