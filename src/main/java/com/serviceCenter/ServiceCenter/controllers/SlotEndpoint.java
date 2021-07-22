@@ -8,6 +8,7 @@ import com.serviceCenter.ServiceCenter.dto.BookDto;
 import com.serviceCenter.ServiceCenter.dto.SlotDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +27,13 @@ public class SlotEndpoint {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('MANAGER')")
     public List<Slot> getPosts(){
         return slotApi.getAllPosts();
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.CREATED)
     public Slot addPost(@RequestBody SlotDto slotDto){
         Slot slot = new Slot();
@@ -44,12 +47,14 @@ public class SlotEndpoint {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removePost(@PathVariable String id){
         slotApi.removePost(id);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     @ResponseStatus(HttpStatus.CREATED)
     public Slot updatePost(@PathVariable String id,@RequestBody SlotDto slotDto){
         Slot slot = new Slot();
@@ -62,6 +67,7 @@ public class SlotEndpoint {
     }
 
     @PostMapping("/put/{id}")
+    @PreAuthorize("hasRole('OWNER')")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Book> putBooksToSlot(@PathVariable String id, @RequestBody BookDto bookDto){
 

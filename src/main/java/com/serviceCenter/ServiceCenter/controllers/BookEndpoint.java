@@ -5,6 +5,7 @@ import com.serviceCenter.ServiceCenter.domain.Book;
 import com.serviceCenter.ServiceCenter.dto.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class BookEndpoint {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('OWNER')")
     public List<Book> getPosts(){
         return bookApi.getAllPosts();
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('OWNER')")
     @ResponseStatus(HttpStatus.CREATED)
     public Book addPost(@RequestBody BookDto bookDto){
         Book book = new Book();
