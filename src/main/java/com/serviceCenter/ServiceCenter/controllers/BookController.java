@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/service/books")
-public class BookEndpoint {
+public class BookController {
 
     private BookApi bookApi;
 
     @Autowired
-    public BookEndpoint(BookApi bookApi){
+    public BookController(BookApi bookApi){
         this.bookApi = bookApi;
     }
 

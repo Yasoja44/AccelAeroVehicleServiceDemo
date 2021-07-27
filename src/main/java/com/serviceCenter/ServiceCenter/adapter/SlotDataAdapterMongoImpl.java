@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class SlotDataAdapterMongoImpl implements SlotDataAdapter {
@@ -60,12 +61,24 @@ public class SlotDataAdapterMongoImpl implements SlotDataAdapter {
 
     @Override
     public Slot update(Slot slot) {
+
+
+
+        Optional<SlotModel> temp = repository.findById(slot.getId());
+        int occupied = temp.get().getBookModel().size();
+        int max = slot.getMax();
+        int available = max-occupied;
+
+        slot.setAvailable(available);
+        slot.setBook(temp.get().getBookModel());
+
         SlotModel slotModel =
                 mongoTemplate.findAndModify(Query.query(Criteria.where("id").is(slot.getId())),
                         new Update().set("slotName", slot.getSlotName())
                                 .set("startingTime", slot.getStartingTime())
                                 .set("endingTime", slot.getEndingTime())
-                                .set("max", slot.getMax()),
+                                .set("Max", slot.getMax())
+                                .set("available",slot.getAvailable()),
                         SlotModel.class);
         return slot;
     }

@@ -70,7 +70,7 @@ public class AuthController {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+					.body(new MessageResponse("Username is already taken, use another name!"));
 		}
 
 		User user = new User(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()));
@@ -85,18 +85,18 @@ public class AuthController {
 				switch (role) {
 					case "manager":
 						Role adminRole = roleRepository.findByName(ERole.ROLE_MANAGER)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Error: Invalid role."));
 						roles.add(adminRole);
 
 						break;
 					case "owner":
 						Role modRole = roleRepository.findByName(ERole.ROLE_OWNER)
-								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								.orElseThrow(() -> new RuntimeException("Error: Invalid role."));
 						roles.add(modRole);
 
 						break;
 					default:
-						new RuntimeException("Error: Role is not found.");
+						new RuntimeException("Error: Invalid role.");
 
 				}
 			});
@@ -105,6 +105,6 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponse("successfully Registered"));
 	}
 }

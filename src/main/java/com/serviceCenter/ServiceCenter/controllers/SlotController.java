@@ -15,13 +15,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/service/slots")
-public class SlotEndpoint {
+public class SlotController {
 
     private SlotApi slotApi;
     private BookApi bookApi;
 
     @Autowired
-    public SlotEndpoint(SlotApi slotApi,BookApi bookApi){
+    public SlotController(SlotApi slotApi, BookApi bookApi){
         this.slotApi = slotApi;
         this.bookApi = bookApi;
     }
@@ -62,6 +62,7 @@ public class SlotEndpoint {
         slot.setSlotName(slotDto.getSlotName());
         slot.setStartingTime(slotDto.getStartingTime());
         slot.setEndingTime(slotDto.getEndingTime());
+        slot.setBook(slotDto.getBookModel());
         slot.setMax(slotDto.getMax());
         return slotApi.updatePost(slot);
     }
