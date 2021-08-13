@@ -28,6 +28,8 @@ public class SlotDataAdapterMongoImpl implements SlotDataAdapter {
         this.repository = repository;
     }
 
+
+
     @Override
     public Slot save(Slot slot) {
         SlotModel slotModel = new SlotModel();
@@ -54,6 +56,7 @@ public class SlotDataAdapterMongoImpl implements SlotDataAdapter {
             slot.setEndingTime(slotModel.getEndingTime());
             slot.setMax(slotModel.getMax());
             slot.setBook(slotModel.getBookModel());
+            slot.setAvailable(slotModel.getAvailable());
             slots.add(slot);
         }
         return slots;

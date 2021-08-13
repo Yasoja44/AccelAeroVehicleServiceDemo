@@ -18,6 +18,7 @@ public class SlotApi {
         this.slotDataAdapter = slotDataAdapter;
     }
 
+
     public List<Slot> getAllPosts(){
         return slotDataAdapter.getAll();
     }

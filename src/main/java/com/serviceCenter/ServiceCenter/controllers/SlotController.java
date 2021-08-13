@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/service/slots")
 public class SlotController {
@@ -26,11 +27,13 @@ public class SlotController {
         this.bookApi = bookApi;
     }
 
+
     @GetMapping
-    @PreAuthorize("hasRole('MANAGER')")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('OWNER')")
     public List<Slot> getPosts(){
         return slotApi.getAllPosts();
     }
+
 
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")

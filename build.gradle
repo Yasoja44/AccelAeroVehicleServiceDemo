@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'com.palantir.docker' version '0.22.1'
 }
 
 group = 'com.serviceCenter'
@@ -11,6 +12,14 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
+
+
+docker {
+	name "vehicleservicebackend"
+	copySpec.from (jar).rename(".*","app.jar")
+	buildArgs(['JAR_FILE':"app.jar"])
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
